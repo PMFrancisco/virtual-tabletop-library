@@ -1,3 +1,17 @@
+# [0.2.0](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.1.0...v0.2.0) (2024-02-19)
+
+
+### Bug Fixes
+
+* test file deleted ([b315148](https://github.com/PMFrancisco/virtual-tabletop-library/commit/b3151481277c400227784997525577f544403429))
+
+
+### Features
+
+* map usage implemented ([1ee8d69](https://github.com/PMFrancisco/virtual-tabletop-library/commit/1ee8d6942cab5919dcce2455aef91f413e3ea08b))
+
+
+
 # [0.1.0](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.0.1...v0.1.0) (2024-02-19)
 
 

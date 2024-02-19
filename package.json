@@ -1,6 +1,6 @@
 {
   "name": "virtual-tabletop-library",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Virtual tabletop management library",
   "main": "index.js",
   "scripts": {
