@@ -1,0 +1,27 @@
+{
+  "name": "virtual-tabletop-library",
+  "version": "0.0.0",
+  "description": "Virtual tabletop management library",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PMFrancisco/virtual-tabletop-library.git"
+  },
+  "keywords": [
+    "virtual",
+    "tabletop",
+    "virtual-tabletop",
+    "library",
+    "boardgames",
+    "ttrpg"
+  ],
+  "author": "PMFrancisco",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PMFrancisco/virtual-tabletop-library/issues"
+  },
+  "homepage": "https://github.com/PMFrancisco/virtual-tabletop-library#readme"
+}
