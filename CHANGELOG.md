@@ -1,3 +1,12 @@
+## [0.2.1](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.2.0...v0.2.1) (2024-02-19)
+
+
+### Bug Fixes
+
+* export bugs fixing ([ec63d36](https://github.com/PMFrancisco/virtual-tabletop-library/commit/ec63d361fd770273e9b9056fe4a03b6187a822c1))
+
+
+
 # [0.2.0](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.1.0...v0.2.0) (2024-02-19)
 
 
