@@ -1,4 +1,4 @@
-class MapCanvas {
+export class MapCanvas {
     constructor(canvasId, options) {
         this.canvasId = canvasId;
         this.options = options;
