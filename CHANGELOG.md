@@ -1,3 +1,12 @@
+## [0.2.2](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.2.1...v0.2.2) (2024-02-20)
+
+
+### Bug Fixes
+
+* readme adjusted, MapCanvas class adjusted ([3daba88](https://github.com/PMFrancisco/virtual-tabletop-library/commit/3daba889df7cbaa2c508a44f94a40ff1e66609bf))
+
+
+
 ## [0.2.1](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.2.0...v0.2.1) (2024-02-19)
 
 
