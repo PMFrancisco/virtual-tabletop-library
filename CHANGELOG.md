@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.2.2...v0.3.0) (2024-03-14)
+
+
+### Features
+
+* 1 ([c47a582](https://github.com/PMFrancisco/virtual-tabletop-library/commit/c47a582eaac3abceab5d5e390804a26bad9ed2b7))
+
+
+
 ## [0.2.2](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.2.1...v0.2.2) (2024-02-20)
 
 
@@ -36,16 +45,6 @@
 ### Features
 
 * husky and commitlint set ([7adcffa](https://github.com/PMFrancisco/virtual-tabletop-library/commit/7adcffabf7ff01b1d310ed373fde07d2570df1a3))
-
-
-
-## [0.0.1](https://github.com/PMFrancisco/virtual-tabletop-library/compare/fadc9aa8a94bb751dc833087f5267498042c6a2f...v0.0.1) (2024-02-19)
-
-
-### Bug Fixes
-
-* Github actions fixed ([d52aba1](https://github.com/PMFrancisco/virtual-tabletop-library/commit/d52aba183e18ee9230ced20fcaa8ec7bf34f3cd3))
-* Github actions fixed ([fadc9aa](https://github.com/PMFrancisco/virtual-tabletop-library/commit/fadc9aa8a94bb751dc833087f5267498042c6a2f))
 
 
 
