@@ -2,7 +2,7 @@
   "name": "virtual-tabletop-library",
   "version": "0.3.3",
   "description": "Virtual tabletop management library",
-  "main": "src/mapCanvas.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "test",
     "prepare": "husky"
