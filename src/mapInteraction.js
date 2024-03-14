@@ -1,41 +1,52 @@
 export class MapInteractionManager {
-    constructor(canvasManager) {
-      this.canvasManager = canvasManager;
-      this.initEventListeners();
+    constructor(mapCanvas) {
+      this.mapCanvas = mapCanvas;
+      this.attachEventListeners();
     }
   
-    initEventListeners() {
-      const canvas = this.canvasManager.canvas;
+    attachEventListeners() {
+      const canvas = this.mapCanvas.canvas;
   
-      canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
-      canvas.addEventListener("mousemove", this.handleMouseMove.bind(this));
-      canvas.addEventListener("mouseup", this.handleMouseUp.bind(this));
-      canvas.addEventListener("mouseleave", this.handleMouseUp.bind(this));
-      canvas.addEventListener("wheel", this.handleMouseWheel.bind(this));
+      canvas.addEventListener("mousedown", (event) => this.mousePressed(event));
+      canvas.addEventListener("mousemove", (event) => this.mouseDragged(event));
+      window.addEventListener("mouseup", (event) => this.mouseReleased(event));
+      canvas.addEventListener("wheel", (event) => this.mouseWheel(event));
     }
   
-    handleMouseDown(event) {
-      this.dragging = true;
-      this.lastX = event.clientX;
-      this.lastY = event.clientY;
+    mousePressed(event) {
+      this.mapCanvas.dragging = true;
+      this.mapCanvas.dragStartX = event.offsetX - this.mapCanvas.mapX;
+      this.mapCanvas.dragStartY = event.offsetY - this.mapCanvas.mapY;
     }
   
-    handleMouseMove(event) {
-      if (!this.dragging) return;
-      const dx = event.clientX - this.lastX;
-      const dy = event.clientY - this.lastY;
-      this.canvasManager.moveMap(dx, dy); 
-      this.lastX = event.clientX;
-      this.lastY = event.clientY;
+    mouseDragged(event) {
+      if (this.mapCanvas.dragging) {
+        this.mapCanvas.mapX = event.offsetX - this.mapCanvas.dragStartX;
+        this.mapCanvas.mapY = event.offsetY - this.mapCanvas.dragStartY;
+        this.mapCanvas.draw();
+      }
     }
   
-    handleMouseUp(event) {
-      this.dragging = false;
+    mouseReleased(event) {
+      this.mapCanvas.dragging = false;
     }
   
-    handleMouseWheel(event) {
+    mouseWheel(event) {
+      const zoomIntensity = 0.1;
+      const wheelDelta = event.deltaY;
+      let zoom = Math.exp(wheelDelta * zoomIntensity * -0.01);
+  
+      const mouseX = (event.offsetX - this.mapCanvas.mapX) / this.mapCanvas.scaleMap;
+      const mouseY = (event.offsetY - this.mapCanvas.mapY) / this.mapCanvas.scaleMap;
+  
+      this.mapCanvas.scaleMap *= zoom;
+      this.mapCanvas.scaleMap = Math.max(0.5, Math.min(3, this.mapCanvas.scaleMap));
+  
+      this.mapCanvas.mapX = event.offsetX - mouseX * this.mapCanvas.scaleMap;
+      this.mapCanvas.mapY = event.offsetY - mouseY * this.mapCanvas.scaleMap;
+  
+      this.mapCanvas.draw();
       event.preventDefault();
-      const zoomDirection = event.deltaY < 0 ? 1 : -1;
-      this.canvasManager.zoomMap(zoomDirection); 
     }
   }
+  
