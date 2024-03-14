@@ -91,6 +91,6 @@ export class MapInteractionManager {
   handleMouseWheel(event) {
     event.preventDefault();
     const zoomDirection = event.deltaY < 0 ? 1 : -1;
-    this.canvasManager.zoomMap(zoomDirection); 
+    this.canvasManager.zoomMap(zoomDirection); // Assuming CanvasManager has a zoomMap method
   }
 }
