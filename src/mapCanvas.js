@@ -1,97 +1,96 @@
 export class MapCanvas {
-  constructor(canvasId, { mapUrl, maxWidth = 800, maxHeight = 600 } = {}) {
-    this.canvasId = canvasId;
-    this.mapUrl = mapUrl;
-    this.maxWidth = maxWidth;
-    this.maxHeight = maxHeight;
+  constructor(boardId, imageUrl) {
+    this.board = document.getElementById(boardId);
+    this.imageUrl = imageUrl;
+    this.canvas = this.createCanvas();
+    this.ctx = this.canvas.getContext("2d");
     this.mapImage = new Image();
     this.imageLoaded = false;
     this.mapX = 0;
     this.mapY = 0;
-    this.dragging = false;
-    this.dragStartX = 0;
-    this.dragStartY = 0;
     this.scaleMap = 1.0;
-    this.initCanvas();
+    this.loadImage();
   }
 
-  initCanvas() {
-    const board = document.getElementById(this.canvasId);
-    this.boardWidth = Math.min(board.offsetWidth, this.maxWidth);
-    this.boardHeight = Math.min(board.offsetHeight, this.maxHeight);
-    this.canvas = document.createElement("canvas");
-    this.canvas.width = this.boardWidth;
-    this.canvas.height = this.boardHeight;
-    board.appendChild(this.canvas);
-    this.ctx = this.canvas.getContext("2d");
-    this.loadMapImage();
-    this.attachEventListeners();
+  createCanvas() {
+    let canvas = document.createElement("canvas");
+    canvas.width = this.board.offsetWidth;
+    canvas.height = this.board.offsetHeight;
+    this.board.appendChild(canvas);
+    return canvas;
   }
 
-  loadMapImage() {
-    this.mapImage.src = this.mapUrl;
+  loadImage() {
     this.mapImage.onload = () => {
       this.imageLoaded = true;
-      this.mapX = (this.boardWidth - this.mapImage.width * this.scaleMap) / 2;
-      this.mapY = (this.boardHeight - this.mapImage.height * this.scaleMap) / 2;
-      this.draw();
+      this.mapX = (this.canvas.width - this.mapImage.width) / 2;
+      this.mapY = (this.canvas.height - this.mapImage.height) / 2;
+      this.draw(); 
     };
+    this.mapImage.src = this.imageUrl;
+  }
+
+  moveMap(dx, dy) {
+    this.mapX += dx;
+    this.mapY += dy;
+    this.draw(); 
+  }
+
+  zoomMap(zoomDirection) {
+    const zoomIntensity = 0.1;
+    this.scaleMap += zoomDirection * zoomIntensity;
+    this.draw(); 
   }
 
   draw() {
-    if (!this.imageLoaded) return;
-    this.ctx.clearRect(0, 0, this.boardWidth, this.boardHeight);
-    this.ctx.save();
-    this.ctx.translate(this.mapX, this.mapY);
-    this.ctx.scale(this.scaleMap, this.scaleMap);
-    this.ctx.drawImage(this.mapImage, 0, 0);
-    this.ctx.restore();
-  }
-
-  attachEventListeners() {
-    this.canvas.addEventListener("mousedown", (event) =>
-      this.mousePressed(event)
-    );
-    this.canvas.addEventListener("mousemove", (event) =>
-      this.mouseDragged(event)
-    );
-    window.addEventListener("mouseup", (event) => this.mouseReleased(event));
-    this.canvas.addEventListener("wheel", (event) => this.mouseWheel(event));
-  }
-
-  mousePressed(event) {
-    this.dragging = true;
-    this.dragStartX = event.offsetX - this.mapX;
-    this.dragStartY = event.offsetY - this.mapY;
-  }
-
-  mouseDragged(event) {
-    if (this.dragging) {
-      this.mapX = event.offsetX - this.dragStartX;
-      this.mapY = event.offsetY - this.dragStartY;
-      this.draw();
+    if (this.imageLoaded) {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); 
+      this.ctx.translate(this.mapX, this.mapY);
+      this.ctx.scale(this.scaleMap, this.scaleMap);
+      this.ctx.drawImage(this.mapImage, 0, 0); 
+      this.ctx.restore(); 
     }
   }
+}
 
-  mouseReleased(event) {
+export class MapInteractionManager {
+  constructor(canvasManager) {
+    this.canvasManager = canvasManager;
+    this.initEventListeners();
+  }
+
+  initEventListeners() {
+    const canvas = this.canvasManager.canvas;
+
+    canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
+    canvas.addEventListener("mousemove", this.handleMouseMove.bind(this));
+    canvas.addEventListener("mouseup", this.handleMouseUp.bind(this));
+    canvas.addEventListener("mouseleave", this.handleMouseUp.bind(this));
+    canvas.addEventListener("wheel", this.handleMouseWheel.bind(this));
+  }
+
+  handleMouseDown(event) {
+    this.dragging = true;
+    this.lastX = event.clientX;
+    this.lastY = event.clientY;
+  }
+
+  handleMouseMove(event) {
+    if (!this.dragging) return;
+    const dx = event.clientX - this.lastX;
+    const dy = event.clientY - this.lastY;
+    this.canvasManager.moveMap(dx, dy); 
+    this.lastX = event.clientX;
+    this.lastY = event.clientY;
+  }
+
+  handleMouseUp(event) {
     this.dragging = false;
   }
 
-  mouseWheel(event) {
-    const zoomIntensity = 0.1;
-    const wheelDelta = event.deltaY;
-    let zoom = Math.exp(wheelDelta * zoomIntensity * -0.01);
-
-    const mouseX = (event.offsetX - this.mapX) / this.scaleMap;
-    const mouseY = (event.offsetY - this.mapY) / this.scaleMap;
-
-    this.scaleMap *= zoom;
-    this.scaleMap = Math.max(0.5, Math.min(3, this.scaleMap));
-
-    this.mapX = event.offsetX - mouseX * this.scaleMap;
-    this.mapY = event.offsetY - mouseY * this.scaleMap;
-
-    this.draw();
+  handleMouseWheel(event) {
     event.preventDefault();
+    const zoomDirection = event.deltaY < 0 ? 1 : -1;
+    this.canvasManager.zoomMap(zoomDirection); 
   }
 }
