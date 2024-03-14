@@ -1,3 +1,12 @@
+## [0.3.1](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.3.0...v0.3.1) (2024-03-14)
+
+
+### Bug Fixes
+
+* deleted redundancy ([106fab3](https://github.com/PMFrancisco/virtual-tabletop-library/commit/106fab3a291b8cda9560c760ccfdf374d316dbbd))
+
+
+
 # [0.3.0](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.2.2...v0.3.0) (2024-03-14)
 
 
@@ -36,15 +45,6 @@
 ### Features
 
 * map usage implemented ([1ee8d69](https://github.com/PMFrancisco/virtual-tabletop-library/commit/1ee8d6942cab5919dcce2455aef91f413e3ea08b))
-
-
-
-# [0.1.0](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.0.1...v0.1.0) (2024-02-19)
-
-
-### Features
-
-* husky and commitlint set ([7adcffa](https://github.com/PMFrancisco/virtual-tabletop-library/commit/7adcffabf7ff01b1d310ed373fde07d2570df1a3))
 
 
 
