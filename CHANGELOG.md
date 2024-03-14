@@ -1,3 +1,12 @@
+## [0.3.3](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.3.2...v0.3.3) (2024-03-14)
+
+
+### Bug Fixes
+
+* one file ([ec9a514](https://github.com/PMFrancisco/virtual-tabletop-library/commit/ec9a514f99a3fe59bcb0f849c2b0001199ebda5e))
+
+
+
 ## [0.3.2](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.3.1...v0.3.2) (2024-03-14)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * readme adjusted, MapCanvas class adjusted ([3daba88](https://github.com/PMFrancisco/virtual-tabletop-library/commit/3daba889df7cbaa2c508a44f94a40ff1e66609bf))
-
-
-
-## [0.2.1](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.2.0...v0.2.1) (2024-02-19)
-
-
-### Bug Fixes
-
-* export bugs fixing ([ec63d36](https://github.com/PMFrancisco/virtual-tabletop-library/commit/ec63d361fd770273e9b9056fe4a03b6187a822c1))
 
 
 
