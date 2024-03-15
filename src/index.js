@@ -173,6 +173,12 @@ export class MapDrawingManager {
     }
   }
 
+  clear() {
+    this.drawnElements = []; 
+    this.mapCanvas.clearCanvas();
+    this.mapCanvas.draw();
+  }
+
   redrawAll() {
     this.mapCanvas.clearCanvas();
     this.mapCanvas.draw(); 
