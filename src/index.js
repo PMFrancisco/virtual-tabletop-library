@@ -1,5 +1,5 @@
 export class MapCanvas {
-  constructor(canvasId, { mapUrl, maxWidth = 800, maxHeight = 600 } = {}) {
+  constructor(canvasId, { mapUrl, maxWidth = 800, maxHeight = 600 }, onImageLoadedCallback = {}) {
     this.canvasId = canvasId;
     this.mapUrl = mapUrl;
     this.maxWidth = maxWidth;
@@ -10,6 +10,7 @@ export class MapCanvas {
     this.mapY = 0;
     this.scaleMap = 1.0;
     this.mode = "interaction";
+    this.onImageLoadedCallback = onImageLoadedCallback;
     this.initCanvas();
   }
 
@@ -30,6 +31,9 @@ export class MapCanvas {
       this.imageLoaded = true;
       this.adjustMapPosition();
       this.draw();
+      if (this.onImageLoadedCallback) {
+        this.onImageLoadedCallback();
+      }
     };
     this.mapImage.src = this.mapUrl;
   }
@@ -67,8 +71,14 @@ export class MapInteractionManager {
   }
 
   attachEventListeners() {
-    this.mapCanvas.canvas.addEventListener("mousedown", this.mousePressed.bind(this));
-    this.mapCanvas.canvas.addEventListener("mousemove", this.mouseDragged.bind(this));
+    this.mapCanvas.canvas.addEventListener(
+      "mousedown",
+      this.mousePressed.bind(this)
+    );
+    this.mapCanvas.canvas.addEventListener(
+      "mousemove",
+      this.mouseDragged.bind(this)
+    );
     window.addEventListener("mouseup", this.mouseReleased.bind(this));
     this.mapCanvas.canvas.addEventListener("wheel", this.mouseWheel.bind(this));
   }
@@ -87,7 +97,6 @@ export class MapInteractionManager {
       this.mapCanvas.mapY = event.offsetY - this.mapCanvas.dragStartY;
       this.mapCanvas.draw();
       this.mapDrawingManager.redrawAll();
-      
     }
   }
 
@@ -132,7 +141,10 @@ export class MapDrawingManager {
   }
 
   attachDrawingEventListeners() {
-    this.mapCanvas.canvas.addEventListener("mousedown", this.startDrawing.bind(this));
+    this.mapCanvas.canvas.addEventListener(
+      "mousedown",
+      this.startDrawing.bind(this)
+    );
     this.mapCanvas.canvas.addEventListener("mousemove", this.draw.bind(this));
     window.addEventListener("mouseup", this.stopDrawing.bind(this));
   }
@@ -141,8 +153,10 @@ export class MapDrawingManager {
     if (this.mapCanvas.mode !== "drawing") return;
 
     this.drawing = true;
-    const relativeStartX = (event.offsetX - this.mapCanvas.mapX) / this.mapCanvas.scaleMap;
-    const relativeStartY = (event.offsetY - this.mapCanvas.mapY) / this.mapCanvas.scaleMap;
+    const relativeStartX =
+      (event.offsetX - this.mapCanvas.mapX) / this.mapCanvas.scaleMap;
+    const relativeStartY =
+      (event.offsetY - this.mapCanvas.mapY) / this.mapCanvas.scaleMap;
     this.currentPath = {
       color: this.brushColor,
       size: this.brushSize,
@@ -154,8 +168,10 @@ export class MapDrawingManager {
   draw(event) {
     if (!this.drawing || this.mapCanvas.mode !== "drawing") return;
 
-    const relativeX = (event.offsetX - this.mapCanvas.mapX) / this.mapCanvas.scaleMap;
-    const relativeY = (event.offsetY - this.mapCanvas.mapY) / this.mapCanvas.scaleMap;
+    const relativeX =
+      (event.offsetX - this.mapCanvas.mapX) / this.mapCanvas.scaleMap;
+    const relativeY =
+      (event.offsetY - this.mapCanvas.mapY) / this.mapCanvas.scaleMap;
     this.currentPath.points.push({ x: relativeX, y: relativeY });
 
     this.redrawAll();
@@ -174,23 +190,23 @@ export class MapDrawingManager {
   }
 
   clear() {
-    this.drawnElements = []; 
+    this.drawnElements = [];
     this.mapCanvas.clearCanvas();
     this.mapCanvas.draw();
   }
 
   redrawAll() {
     this.mapCanvas.clearCanvas();
-    this.mapCanvas.draw(); 
+    this.mapCanvas.draw();
 
-    this.drawnElements.forEach(path => {
+    this.drawnElements.forEach((path) => {
       this.mapCanvas.ctx.beginPath();
       path.points.forEach((point, index) => {
         const canvasX = this.mapCanvas.mapX + point.x * this.mapCanvas.scaleMap;
         const canvasY = this.mapCanvas.mapY + point.y * this.mapCanvas.scaleMap;
         if (index === 0) {
           this.mapCanvas.ctx.moveTo(canvasX, canvasY);
-        } else {
+        } else {-
           this.mapCanvas.ctx.lineTo(canvasX, canvasY);
         }
       });
@@ -198,5 +214,10 @@ export class MapDrawingManager {
       this.mapCanvas.ctx.lineWidth = path.size;
       this.mapCanvas.ctx.stroke();
     });
+  }
+
+  initializeDrawnElements(drawnElements) {
+    this.drawnElements = drawnElements;
+    this.redrawAll();
   }
 }
