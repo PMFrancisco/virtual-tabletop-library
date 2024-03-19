@@ -1,3 +1,14 @@
+# [0.4.0](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.3.4...v0.4.0) (2024-03-19)
+
+
+### Features
+
+* added drawing function ([ab99046](https://github.com/PMFrancisco/virtual-tabletop-library/commit/ab99046675abea3fe088a0a460b0cabca55bbaa3))
+* clear function ([f0d764b](https://github.com/PMFrancisco/virtual-tabletop-library/commit/f0d764b48269d11fcc46877790abe47802fcf27a))
+* repaint ([fadc75f](https://github.com/PMFrancisco/virtual-tabletop-library/commit/fadc75f758569fbbb21c3280529707a96902e610))
+
+
+
 ## [0.3.4](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.3.3...v0.3.4) (2024-03-14)
 
 
@@ -31,15 +42,6 @@
 ### Bug Fixes
 
 * deleted redundancy ([106fab3](https://github.com/PMFrancisco/virtual-tabletop-library/commit/106fab3a291b8cda9560c760ccfdf374d316dbbd))
-
-
-
-# [0.3.0](https://github.com/PMFrancisco/virtual-tabletop-library/compare/v0.2.2...v0.3.0) (2024-03-14)
-
-
-### Features
-
-* 1 ([c47a582](https://github.com/PMFrancisco/virtual-tabletop-library/commit/c47a582eaac3abceab5d5e390804a26bad9ed2b7))
 
 
 
